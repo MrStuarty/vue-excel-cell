@@ -11,7 +11,7 @@ function resolve(name) {
 
 module.exports = {
   mode: "development",
-  entry: "./main.js",
+  entry: "./index.js",
   output: {
     path: resolve("dist"),
     filename: "[name].[contenthash].js",

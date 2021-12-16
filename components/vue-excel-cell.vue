@@ -109,7 +109,12 @@
 </template>
 
 <script>
-import { chooseFile, readFile, getArrayData, exportFile } from "../utils/index";
+import {
+  chooseFile,
+  readFile,
+  getArrayData,
+  exportFile,
+} from "../utils/index.js";
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export default {

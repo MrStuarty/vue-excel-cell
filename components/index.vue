@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import VueExcelTable from "./vue-excel-cell.vue";
+import { VueExcelCell } from "../main.js";
 export default {
-  components: { VueExcelTable },
+  components: { VueExcelCell },
   methods: {
     importFile() {
       this.$refs.table.importFile();
