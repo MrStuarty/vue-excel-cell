@@ -1,5 +1,5 @@
 {
-  "name": "vue-excel-table",
+  "name": "vue-excel-cell",
   "version": "1.0.0",
   "description": "A handy excel table, based on vue2.x",
   "main": "main.js",
@@ -7,7 +7,7 @@
     "start": "webpack-dev-server",
     "build": "webpack"
   },
-  "repository": "https://github.com/MrStuarty/vue-excel-table.git",
+  "repository": "https://github.com/MrStuarty/vue-excel-cell.git",
   "author": "wangwenyang",
   "license": "MIT",
   "devDependencies": {

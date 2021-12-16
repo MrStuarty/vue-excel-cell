@@ -4,12 +4,12 @@
       <button @click="importFile">导入excel</button>
       <button @click="exportFile">导出xlsx</button>
     </div>
-    <vue-excel-table ref="table"></vue-excel-table>
+    <vue-excel-cell ref="table"></vue-excel-cell>
   </div>
 </template>
 
 <script>
-import VueExcelTable from "./vue-excel-table.vue";
+import VueExcelTable from "./vue-excel-cell.vue";
 export default {
   components: { VueExcelTable },
   methods: {

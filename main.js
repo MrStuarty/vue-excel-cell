@@ -1,7 +1,7 @@
-export * as VueExcelTable from "./components/vue-excel-table";
+export * as VueExcelCell from "./components/vue-excel-cell";
 
 export default {
   install(Vue) {
-    Vue.component("vue-excel-table", VueExcelTable);
+    Vue.component("vue-excel-cell", VueExcelCell);
   },
 };

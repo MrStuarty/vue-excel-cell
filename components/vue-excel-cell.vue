@@ -1,5 +1,5 @@
 <template>
-  <div class="vue-excel-table" @contextmenu.prevent>
+  <div class="vue-excel-cell" @contextmenu.prevent>
     <table border="1" class="excel-table-inner">
       <colgroup>
         <col
@@ -360,7 +360,7 @@ export default {
 </script>
 
 <style lang="less">
-.vue-excel-table {
+.vue-excel-cell {
   position: relative;
   .excel-table-editor {
     position: absolute;
