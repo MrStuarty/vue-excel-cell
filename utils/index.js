@@ -54,18 +54,21 @@ export function getArrayData(data) {
   return arr;
 }
 
-export function exportFile(data, title = "未命名") {
+export function exportFile(data, title) {
   const wb = XLSX.utils.book_new();
 
   const header = data[0];
 
   const mapped = data
+    .slice(1)
     .filter((v) => v.length > 0)
     .map((rec) => {
       const conv = {};
       header.forEach((name, i) => (conv[name] = rec[i]));
       return conv;
     });
+
+  console.log(mapped);
 
   const worksheet = XLSX.utils.json_to_sheet(mapped, { header });
 

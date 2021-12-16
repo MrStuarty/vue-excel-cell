@@ -350,10 +350,10 @@ export default {
       });
     },
 
-    exportFile() {
+    exportFile(title = "未命名") {
       return new Promise((resolve, reject) => {
         try {
-          exportFile(this.tableData);
+          exportFile(this.tableData, title);
           resolve();
         } catch (e) {
           reject(e);
@@ -364,7 +364,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .vue-excel-cell {
   position: relative;
   .excel-table-editor {
