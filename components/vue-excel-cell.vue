@@ -1,12 +1,12 @@
 <template>
   <div class="vue-excel-cell" @contextmenu.prevent>
-    <table border="1" class="excel-table-inner">
+    <table class="excel-table-inner">
       <colgroup>
         <col
           class="e-t-e-col"
           v-for="(item, idx) in alphaArr"
           :key="item + idx"
-          style="width: 50px"
+          style="width: 70px"
         />
       </colgroup>
       <thead>
@@ -127,8 +127,8 @@ export default {
       editorStyle: {
         left: "1px",
         top: "1px",
-        width: "50px",
-        height: "24px",
+        width: "70px",
+        height: "30px",
       },
       contextStyle: {
         left: "0px",
@@ -168,7 +168,6 @@ export default {
     },
   },
   created() {
-    window.app = this;
     window.addEventListener("mousedown", this.hideControls);
   },
   beforeDestroy() {
@@ -241,7 +240,7 @@ export default {
       const initialWidth = COL.clientWidth;
       document.onmousemove = (evt) => {
         const diffX = evt.pageX - startX + initialWidth;
-        const finalX = diffX < 50 ? 50 : diffX;
+        const finalX = diffX < 70 ? 70 : diffX;
         COL.style.width = finalX + "px";
       };
 
@@ -272,7 +271,7 @@ export default {
       const initialHeight = ROW.clientHeight;
       document.onmousemove = (evt) => {
         const diffY = evt.pageY - startY + initialHeight;
-        const finalY = diffY < 24 ? 24 : diffY;
+        const finalY = diffY < 30 ? 30 : diffY;
         ROW.style.height = finalY + "px";
       };
 
@@ -360,6 +359,16 @@ export default {
         }
       });
     },
+
+    getData() {
+      return this.tableData;
+    },
+
+    setData(data) {
+      if (Array.isArray(data)) {
+        this.tableData = data;
+      }
+    },
   },
 };
 </script>
@@ -369,8 +378,8 @@ export default {
   position: relative;
   .excel-table-editor {
     position: absolute;
-    width: 50px;
-    height: 24px;
+    width: 70px;
+    height: 30px;
     left: 1px;
     top: 1px;
     border: 2px solid rgb(108, 143, 108);
@@ -414,8 +423,9 @@ export default {
     table-layout: fixed;
     width: 0;
     user-select: none;
-    border-color: #e8e8e8;
     font-size: 14px;
+    border-left: 1px solid #e8e8e8;
+    border-top: 1px solid #e8e8e8;
     thead {
       background: #f5f5f5;
     }
@@ -425,6 +435,9 @@ export default {
       box-sizing: border-box;
       padding: 0;
       position: relative;
+      border-right: 1px solid #e8e8e8;
+      border-bottom: 1px solid #e8e8e8;
+      vertical-align: middle;
       &.cell-active {
         background-color: rgb(108, 143, 108);
         color: white;
@@ -452,7 +465,7 @@ export default {
     }
 
     tr {
-      height: 24px;
+      height: 30px;
       .e-row-title {
         position: relative;
         overflow: visible;

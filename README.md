@@ -13,13 +13,13 @@ import VueExcelCell from 'vue-excel-cell'
 Vue.use(VueExcelCell)
 ```
 
-in your '*.vue' file
+in your '\*.vue' file
 
 ```
 <vue-excel-cell></vue-excel-cell>
 ```
 
-#OR directly in your '*.vue' file
+#OR directly in your '\*.vue' file
 
 ```
 <template>
@@ -30,23 +30,32 @@ in your '*.vue' file
 import { VueExcelCell } from 'vue-excel-cell'
 
 export default {
+
   components: { VueExcelCell },
+
   methods: {
+
     importFile() {
       this.$refs.table.importFile()
       .then(() => {
       })
       .catch(() => {})
     },
+
     exportFile() {
-      const dataArr = this.getData()
-      this.$refs.table.exportFile(dataArr, filename)
+      const filename = 'anonymous'
+      this.$refs.table.exportFile(filename)
       .then(() => {
       })
       .catch(() => {})
     },
+
     getData() {
-      return this.$refs.table.tableData
+      return this.$refs.table.getData()
+    },
+
+    setData(data) { // data must be an array
+      return this.$refs.table.setData(data)
     }
   }
 }
@@ -54,6 +63,7 @@ export default {
 ```
 
 data format
+
 ```
 dataArr: [
 	["", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
@@ -64,4 +74,3 @@ dataArr: [
 	["Search Engine", 820, 932, 901, 934, 1290, 1330, 1320],
 ];
 ```
-
