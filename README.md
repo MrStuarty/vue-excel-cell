@@ -39,7 +39,7 @@ export default {
       .catch(() => {})
     },
     exportFile() {
-      const dataArr = getData()
+      const dataArr = this.getData()
       this.$refs.table.exportFile(dataArr, filename)
       .then(() => {
       })
