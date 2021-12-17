@@ -1,19 +1,13 @@
 <template>
   <div class="vue-excel-cell" @contextmenu.prevent>
     <table class="excel-table-inner">
-      <colgroup>
-        <col
-          class="e-t-e-col"
-          v-for="(item, idx) in alphaArr"
-          :key="item + idx"
-          style="width: 70px"
-        />
-      </colgroup>
       <thead>
         <tr>
           <th
+            style="width: 70px"
             v-for="(item, idx) in alphaArr"
             :key="item + idx"
+            class="e-t-e-col no-select"
             :class="{ 'cell-active': showEditor && position[1] === idx - 1 }"
             @contextmenu.prevent="(e) => contextMenu(e, { type: 'col', idx })"
           >
@@ -33,7 +27,7 @@
         <tr v-for="(row, idx) in dataList" :key="idx" class="e-t-e-row">
           <td
             :class="{ 'cell-active': showEditor && position[0] === idx }"
-            class="e-row-title"
+            class="e-row-title no-select"
             @contextmenu.prevent="(e) => contextMenu(e, { type: 'row', idx })"
           >
             {{ idx + 1 }}
@@ -228,7 +222,7 @@ export default {
     },
 
     xLeave(e) {
-      e.target.style.height = "100%";
+      e.target.style.height = "30px";
       this.xActive = -1;
     },
 
@@ -241,6 +235,7 @@ export default {
       document.onmousemove = (evt) => {
         const diffX = evt.pageX - startX + initialWidth;
         const finalX = diffX < 70 ? 70 : diffX;
+        console.log(evt.pageX - startX);
         COL.style.width = finalX + "px";
       };
 
@@ -442,6 +437,10 @@ export default {
         background-color: rgb(108, 143, 108);
         color: white;
       }
+      &.no-select {
+        user-select: none;
+        -ms-user-select: none;
+      }
       .resize-line-vertical {
         position: absolute;
         top: 0;
@@ -449,7 +448,7 @@ export default {
         width: 4px;
         padding: 0 2px;
         display: inline-block;
-        height: 100%;
+        height: 30px;
         cursor: col-resize;
         &.line-active {
           background-color: rgb(108, 143, 108);

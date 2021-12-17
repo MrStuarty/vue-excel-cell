@@ -68,16 +68,16 @@ module.exports = {
     new CleanWebpackPlugin(),
   ],
 
-  optimization: {
-    minimize: true,
-    minimizer: [new TerserPlugin()],
-    runtimeChunk: {
-      name: "runtime",
-    },
-    splitChunks: {
-      chunks: "all",
-    },
-  },
+  // optimization: {
+  //   minimize: true,
+  //   minimizer: [new TerserPlugin()],
+  //   runtimeChunk: {
+  //     name: "runtime",
+  //   },
+  //   splitChunks: {
+  //     chunks: "all",
+  //   },
+  // },
 
   devServer: {
     port: 8080,
