@@ -1,4 +1,5 @@
 import XLSX from "xlsx";
+const { utils } = require("codepage/dist/cpexcel.full.js");
 
 export function chooseFile(ext = ".xlsx,.xls,.csv") {
   return new Promise((resolve, reject) => {
@@ -7,7 +8,7 @@ export function chooseFile(ext = ".xlsx,.xls,.csv") {
     input.accept = ext;
     input.onchange = () => {
       const file = input.files[0];
-      const fileExt = file.name.split(".").pop();
+      const fileExt = getFileExt(file);
       if (ext.indexOf(fileExt) < 0) {
         reject("请上传支持的格式");
         return;
@@ -22,26 +23,55 @@ export function chooseFile(ext = ".xlsx,.xls,.csv") {
 export function readFile(file) {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
+    let isCSV = false;
     fileReader.onload = (res) => {
-      const workbook = XLSX.read(res.target.result, { type: "buffer" });
-      let persons = [];
+      let data = res.target.result;
+      let workbook = null;
+      let output = [];
+      let fromTo = "";
+      if (isCSV) {
+        data = new Uint8Array(data);
+        var str = utils.decode(936, data);
+        workbook = XLSX.read(str, { type: "string" });
+      }
+      if (!workbook) {
+        workbook = XLSX.read(btoa(fixdata(data)), { type: "base64" });
+      }
       // 表格的表格范围，可用于判断表头是否数量是否正确
-      var fromTo = "";
       // 遍历每张表读取
       for (var sheet in workbook.Sheets) {
         if (workbook.Sheets.hasOwnProperty(sheet)) {
           fromTo = workbook.Sheets[sheet]["!ref"];
-          persons = persons.concat(
+          output = output.concat(
             XLSX.utils.sheet_to_json(workbook.Sheets[sheet])
           );
           // break; // 如果只取第一张表，就取消注释这行
         }
       }
-      resolve(persons);
+      resolve(output);
     };
+    isCSV = getFileExt(file) === "csv"; //判断是否是 CSV
     fileReader.onerror = reject;
     fileReader.readAsArrayBuffer(file);
   });
+}
+
+export function getFileExt(file) {
+  return file.name.split(".").pop();
+}
+
+export function fixdata(data) {
+  //文件流转BinaryString
+  var o = "",
+    l = 0,
+    w = 10240;
+  for (; l < data.byteLength / w; ++l)
+    o += String.fromCharCode.apply(
+      null,
+      new Uint8Array(data.slice(l * w, l * w + w))
+    );
+  o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
+  return o;
 }
 
 export function getArrayData(data) {
@@ -67,8 +97,6 @@ export function exportFile(data, title) {
       header.forEach((name, i) => (conv[name] = rec[i]));
       return conv;
     });
-
-  console.log(mapped);
 
   const worksheet = XLSX.utils.json_to_sheet(mapped, { header });
 
