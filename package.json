@@ -1,6 +1,6 @@
 {
   "name": "vue-excel-cell",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A handy excel table, based on vue2.x",
   "main": "main.js",
   "scripts": {
