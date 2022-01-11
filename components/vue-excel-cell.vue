@@ -328,10 +328,11 @@ export default {
       }
     },
 
-    importFile() {
+    importFile({ onChange }) {
       return new Promise((resolve, reject) => {
         try {
           chooseFile().then((file) => {
+            onChange && onChange();
             readFile(file).then((data) => {
               const tableData = getArrayData(data);
               this.tableData = tableData;

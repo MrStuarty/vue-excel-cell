@@ -36,18 +36,28 @@ export default {
   methods: {
 
     importFile() {
-      this.$refs.table.importFile()
-      .then(() => {
+      this.$refs.table.importFile({
+        onChange() {
+          // doSomething after choose file
+        }
       })
-      .catch(() => {})
+      .then(() => {
+        // doSomething after parse data
+      })
+      .catch(() => {
+        // doSomething when error occurs
+      })
     },
 
     exportFile() {
       const filename = 'anonymous'
       this.$refs.table.exportFile(filename)
       .then(() => {
+        // doSomething after export file successfully
       })
-      .catch(() => {})
+      .catch(() => {
+         // doSomething when error occurs
+      })
     },
 
     getData() {
